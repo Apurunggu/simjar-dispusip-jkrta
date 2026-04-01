@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perangkat Jaringan - SIMJAR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+        }
+
+        body {
+            background-color: #ecf0f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .sidebar {
+            background-color: #34495e;
+            min-height: calc(100vh - 56px);
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 25px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .stat-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .btn-custom {
+            border-radius: 4px;
+            padding: 8px 16px;
+            transition: all 0.3s;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #ecf0f1;
+        }
+
+        .alert {
+            border-radius: 4px;
+            border: none;
+        }
+
+        .badge-status-aktif {
+            background-color: var(--success-color);
+        }
+
+        .badge-status-tidak-aktif {
+            background-color: var(--danger-color);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                padding: 0;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                margin-right: 10px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+    </head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000">
+                <i class="bi bi-diagram-3"></i> SIMJAR
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">14 February 2026</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h6 class="text-white px-3 mb-3">MENU UTAMA</h6>
+                <a href="http://127.0.0.1:8000" class="">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <hr class="bg-white opacity-10">
+                <h6 class="text-white px-3 mb-3 mt-3">MODUL</h6>
+                <a href="http://127.0.0.1:8000/barang-masuk" class="">
+                    <i class="bi bi-box-seam"></i> Barang Masuk
+                </a>
+                <a href="http://127.0.0.1:8000/perangkat-jaringan" class=" active ">
+                    <i class="bi bi-router"></i> Perangkat Jaringan
+                </a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-router"></i> Inventaris Perangkat Jaringan</h1>
+    <a href="http://127.0.0.1:8000/perangkat-jaringan/create" class="btn btn-primary btn-custom">
+        <i class="bi bi-plus-circle"></i> Tambah Perangkat
+    </a>
+</div>
+
+<!-- Filter Section -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" action="http://127.0.0.1:8000/perangkat-jaringan" class="row g-3">
+            <div class="col-md-6">
+                <label for="lokasi" class="form-label">Filter Berdasarkan Lokasi</label>
+                <select class="form-select" id="lokasi" name="lokasi">
+                    <option value="">-- Semua Lokasi --</option>
+                                            <option value="Lantai 1" >Lantai 1</option>
+                                            <option value="Lantai 2" >Lantai 2</option>
+                                            <option value="Ruang Server" >Ruang Server</option>
+                                    </select>
+            </div>
+            <div class="col-md-6 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-primary btn-custom">
+                    <i class="bi bi-search"></i> Filter
+                </button>
+                <a href="http://127.0.0.1:8000/perangkat-jaringan" class="btn btn-secondary btn-custom">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nomor Inventaris</th>
+                        <th>Nama Perangkat</th>
+                        <th>Tipe</th>
+                        <th>Lokasi</th>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                                            <tr>
+                            <td>1</td>
+                            <td><strong>INV-NET-001</strong></td>
+                            <td>Router Lantai 1</td>
+                            <td><span class="badge bg-secondary">Router</span></td>
+                            <td>Ruang Server</td>
+                            <td>192.168.1.1</td>
+                            <td>
+                                <span class="badge  badge-status-aktif ">
+                                    Aktif
+                                </span>
+                            </td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/1" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/1/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                                                    <form action="http://127.0.0.1:8000/perangkat-jaringan/1/deactivate" method="POST" style="display: inline;">
+                                        <input type="hidden" name="_token" value="" autocomplete="off">                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menonaktifkan?')" title="Nonaktifkan">
+                                            <i class="bi bi-power"></i>
+                                        </button>
+                                    </form>
+                                                                <a href="http://127.0.0.1:8000/perangkat-jaringan/1/activity-log" class="btn btn-sm btn-primary" title="Log Aktivitas">
+                                    <i class="bi bi-clock-history"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>2</td>
+                            <td><strong>INV-NET-002</strong></td>
+                            <td>Switch Utama</td>
+                            <td><span class="badge bg-secondary">Switch</span></td>
+                            <td>Ruang Server</td>
+                            <td>192.168.1.2</td>
+                            <td>
+                                <span class="badge  badge-status-aktif ">
+                                    Aktif
+                                </span>
+                            </td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/2" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/2/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                                                    <form action="http://127.0.0.1:8000/perangkat-jaringan/2/deactivate" method="POST" style="display: inline;">
+                                        <input type="hidden" name="_token" value="" autocomplete="off">                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menonaktifkan?')" title="Nonaktifkan">
+                                            <i class="bi bi-power"></i>
+                                        </button>
+                                    </form>
+                                                                <a href="http://127.0.0.1:8000/perangkat-jaringan/2/activity-log" class="btn btn-sm btn-primary" title="Log Aktivitas">
+                                    <i class="bi bi-clock-history"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>3</td>
+                            <td><strong>INV-NET-003</strong></td>
+                            <td>AP Lantai 1</td>
+                            <td><span class="badge bg-secondary">Access Point</span></td>
+                            <td>Lantai 1</td>
+                            <td>192.168.1.10</td>
+                            <td>
+                                <span class="badge  badge-status-aktif ">
+                                    Aktif
+                                </span>
+                            </td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/3" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/3/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                                                    <form action="http://127.0.0.1:8000/perangkat-jaringan/3/deactivate" method="POST" style="display: inline;">
+                                        <input type="hidden" name="_token" value="" autocomplete="off">                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menonaktifkan?')" title="Nonaktifkan">
+                                            <i class="bi bi-power"></i>
+                                        </button>
+                                    </form>
+                                                                <a href="http://127.0.0.1:8000/perangkat-jaringan/3/activity-log" class="btn btn-sm btn-primary" title="Log Aktivitas">
+                                    <i class="bi bi-clock-history"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>4</td>
+                            <td><strong>INV-NET-004</strong></td>
+                            <td>AP Lantai 2</td>
+                            <td><span class="badge bg-secondary">Access Point</span></td>
+                            <td>Lantai 2</td>
+                            <td>192.168.1.11</td>
+                            <td>
+                                <span class="badge  badge-status-aktif ">
+                                    Aktif
+                                </span>
+                            </td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/4" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/4/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                                                    <form action="http://127.0.0.1:8000/perangkat-jaringan/4/deactivate" method="POST" style="display: inline;">
+                                        <input type="hidden" name="_token" value="" autocomplete="off">                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menonaktifkan?')" title="Nonaktifkan">
+                                            <i class="bi bi-power"></i>
+                                        </button>
+                                    </form>
+                                                                <a href="http://127.0.0.1:8000/perangkat-jaringan/4/activity-log" class="btn btn-sm btn-primary" title="Log Aktivitas">
+                                    <i class="bi bi-clock-history"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>5</td>
+                            <td><strong>INV-NET-005</strong></td>
+                            <td>Modem ISP</td>
+                            <td><span class="badge bg-secondary">Modem</span></td>
+                            <td>Ruang Server</td>
+                            <td>192.168.0.1</td>
+                            <td>
+                                <span class="badge  badge-status-aktif ">
+                                    Aktif
+                                </span>
+                            </td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/5" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/perangkat-jaringan/5/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                                                    <form action="http://127.0.0.1:8000/perangkat-jaringan/5/deactivate" method="POST" style="display: inline;">
+                                        <input type="hidden" name="_token" value="" autocomplete="off">                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menonaktifkan?')" title="Nonaktifkan">
+                                            <i class="bi bi-power"></i>
+                                        </button>
+                                    </form>
+                                                                <a href="http://127.0.0.1:8000/perangkat-jaringan/5/activity-log" class="btn btn-sm btn-primary" title="Log Aktivitas">
+                                    <i class="bi bi-clock-history"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                    </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

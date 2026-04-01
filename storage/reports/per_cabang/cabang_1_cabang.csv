@@ -1,0 +1,101 @@
+cabang_id,kode,nama_cabang,nomor_barang,nama_barang,kategori,jumlah,stok,tanggal_masuk
+1,,,BRG-012,"UPS APC 1200VA","Perangkat Pendukung",2,2,2026-01-01
+1,,,BRG-020,"Rack Server 20U","Perangkat Pendukung",1,1,2026-01-01
+1,,,BRG-067,"Switch TP-Link 24 Port",Switch,1,1,2026-01-01
+1,,,BRG-072,"Switch Cisco SG250",Switch,5,5,2026-01-01
+1,,,BRG-085,"Router TP-Link Archer C6",Router,5,5,2026-01-02
+1,,,BRG-003,"Router TP-Link Archer C6",Router,2,1,2026-01-03
+1,,,BRG-082,"Access Point Ubiquiti U6","Access Point",1,1,2026-01-03
+1,,,BRG-016,"Access Point Ubiquiti U6","Access Point",5,5,2026-01-04
+1,,,BRG-052,"Kabel UTP Cat6 100m",Kabel,2,2,2026-01-04
+1,,,BRG-088,"Router TP-Link Archer C6",Router,4,4,2026-01-04
+1,,,BRG-044,"Access Point Ubiquiti U6","Access Point",1,1,2026-01-07
+1,,,BRG-087,"UPS APC 1200VA","Perangkat Pendukung",1,1,2026-01-07
+1,,,BRG-033,"Switch Cisco SG250",Switch,2,2,2026-01-08
+1,,,BRG-032,"Switch TP-Link 24 Port",Switch,3,3,2026-01-12
+1,,,BRG-058,"Modem ZTE F609",Modem,3,3,2026-01-12
+1,,,BRG-065,"Router MikroTik RB750",Router,5,5,2026-01-12
+1,,,BRG-023,"Router MikroTik RB750",Router,5,5,2026-01-14
+1,,,BRG-025,"UPS APC 1200VA","Perangkat Pendukung",2,2,2026-01-16
+1,,,BRG-071,"Switch Cisco SG250",Switch,3,3,2026-01-16
+1,,,BRG-089,"Access Point Ubiquiti U6","Access Point",2,2,2026-01-16
+1,,,BRG-080,"Switch TP-Link 24 Port",Switch,3,3,2026-01-17
+1,,,BRG-097,"Access Point TP-Link EAP225","Access Point",3,3,2026-01-17
+1,,,BRG-011,"Modem ZTE F609",Modem,1,1,2026-01-19
+1,,,BRG-091,"UPS APC 1200VA","Perangkat Pendukung",3,3,2026-01-19
+1,,,BRG-034,"Kabel UTP Cat6 100m",Kabel,4,4,2026-01-23
+1,,,BRG-046,"Switch Cisco SG250",Switch,2,2,2026-01-25
+1,,,BRG-061,"Router TP-Link Archer C6",Router,3,3,2026-01-25
+1,,,BRG-063,"UPS APC 1200VA","Perangkat Pendukung",5,5,2026-01-25
+1,,,BRG-079,"UPS APC 1200VA","Perangkat Pendukung",2,2,2026-01-25
+1,,,BRG-093,"UPS APC 1200VA","Perangkat Pendukung",3,3,2026-01-25
+1,,,BRG-041,"Access Point Ubiquiti U6","Access Point",5,5,2026-01-26
+1,,,BRG-002,"Router TP-Link Archer C6",Router,1,1,2026-01-27
+1,,,BRG-099,"Modem ZTE F609",Modem,5,5,2026-01-27
+1,,,BRG-090,"Switch Cisco SG250",Switch,3,3,2026-01-28
+1,,,BRG-075,"Router TP-Link Archer C6",Router,2,2,2026-01-29
+1,,,BRG-047,"Rack Server 20U","Perangkat Pendukung",4,4,2026-01-31
+1,,,BRG-053,"Rack Server 20U","Perangkat Pendukung",5,5,2026-01-31
+1,,,BRG-043,"Switch TP-Link 24 Port",Switch,1,1,2026-02-01
+1,,,BRG-038,"Kabel UTP Cat6 100m",Kabel,2,2,2026-02-06
+1,,,BRG-048,"Kabel UTP Cat6 100m",Kabel,2,2,2026-02-07
+1,,,BRG-077,"Rack Server 20U","Perangkat Pendukung",2,2,2026-02-07
+1,,,BRG-078,"Router MikroTik RB750",Router,4,4,2026-02-07
+1,,,BRG-027,"Router MikroTik RB750",Router,2,2,2026-02-08
+1,,,BRG-051,"Kabel UTP Cat6 100m",Kabel,4,4,2026-02-08
+1,,,BRG-056,"Kabel UTP Cat6 100m",Kabel,5,5,2026-02-09
+1,,,BRG-018,"Router MikroTik RB750",Router,2,2,2026-02-15
+1,,,BRG-019,"Rack Server 20U","Perangkat Pendukung",1,1,2026-02-15
+1,,,BRG-066,"Modem ZTE F609",Modem,1,1,2026-02-16
+1,,,BRG-068,"UPS APC 1200VA","Perangkat Pendukung",4,4,2026-02-16
+1,,,BRG-070,"Access Point TP-Link EAP225","Access Point",5,5,2026-02-16
+1,,,BRG-030,"Access Point TP-Link EAP225","Access Point",1,1,2026-02-19
+1,,,BRG-042,"Kabel UTP Cat6 100m",Kabel,3,3,2026-02-19
+1,,,BRG-013,"UPS APC 1200VA","Perangkat Pendukung",1,1,2026-02-21
+1,,,BRG-007,"Rack Server 20U","Perangkat Pendukung",1,1,2026-02-22
+1,,,BRG-026,"Router TP-Link Archer C6",Router,2,2,2026-02-22
+1,,,BRG-055,"Rack Server 20U","Perangkat Pendukung",4,4,2026-02-22
+1,,,BRG-095,"Access Point TP-Link EAP225","Access Point",3,3,2026-02-22
+1,,,BRG-006,"Router MikroTik RB750",Router,5,5,2026-02-23
+1,,,BRG-064,"Kabel UTP Cat6 100m",Kabel,5,5,2026-02-23
+1,,,BRG-074,"Modem ZTE F609",Modem,4,4,2026-02-25
+1,,,BRG-017,"Router MikroTik RB750",Router,5,5,2026-02-27
+1,,,BRG-069,"Switch TP-Link 24 Port",Switch,4,4,2026-03-02
+1,,,BRG-029,"Router MikroTik RB750",Router,4,4,2026-03-04
+1,,,BRG-037,"Switch TP-Link 24 Port",Switch,2,2,2026-03-04
+1,,,BRG-081,"Router MikroTik RB750",Router,3,3,2026-03-04
+1,,,BRG-045,"Router TP-Link Archer C6",Router,5,5,2026-03-06
+1,,,BRG-054,"Router TP-Link Archer C6",Router,2,2,2026-03-07
+1,,,BRG-073,"Access Point TP-Link EAP225","Access Point",3,3,2026-03-07
+1,,,BRG-021,"Router TP-Link Archer C6",Router,1,1,2026-03-09
+1,,,BRG-036,"Access Point TP-Link EAP225","Access Point",1,1,2026-03-10
+1,,,BRG-094,"Modem ZTE F609",Modem,3,3,2026-03-11
+1,,,BRG-059,"Router MikroTik RB750",Router,5,5,2026-03-12
+1,,,BRG-083,"UPS APC 1200VA","Perangkat Pendukung",2,2,2026-03-12
+1,,,BRG-086,"Kabel UTP Cat6 100m",Kabel,3,3,2026-03-12
+1,,,BRG-062,"Access Point TP-Link EAP225","Access Point",3,3,2026-03-13
+1,,,BRG-084,"Modem ZTE F609",Modem,1,1,2026-03-13
+1,,,BRG-008,"UPS APC 1200VA","Perangkat Pendukung",4,4,2026-03-14
+1,,,BRG-039,"Rack Server 20U","Perangkat Pendukung",4,4,2026-03-14
+1,,,BRG-049,"Router TP-Link Archer C6",Router,4,4,2026-03-14
+1,,,BRG-005,"Access Point Ubiquiti U6","Access Point",3,3,2026-03-15
+1,,,BRG-076,"Rack Server 20U","Perangkat Pendukung",4,4,2026-03-15
+1,,,BRG-092,"Router MikroTik RB750",Router,5,5,2026-03-15
+1,,,BRG-031,"Switch TP-Link 24 Port",Switch,4,4,2026-03-16
+1,,,BRG-001,"Access Point TP-Link EAP225","Access Point",5,0,2026-03-18
+1,,,BRG-024,"Rack Server 20U","Perangkat Pendukung",3,3,2026-03-18
+1,,,BRG-057,"Switch TP-Link 24 Port",Switch,2,2,2026-03-21
+1,,,BRG-004,"Access Point Ubiquiti U6","Access Point",5,5,2026-03-22
+1,,,BRG-014,"Access Point TP-Link EAP225","Access Point",1,1,2026-03-23
+1,,,BRG-009,"Access Point Ubiquiti U6","Access Point",2,2,2026-03-24
+1,,,BRG-010,"Kabel UTP Cat6 100m",Kabel,3,3,2026-03-24
+1,,,BRG-028,"Switch TP-Link 24 Port",Switch,3,3,2026-03-24
+1,,,BRG-040,"Router MikroTik RB750",Router,4,4,2026-03-24
+1,,,BRG-050,"Modem ZTE F609",Modem,4,4,2026-03-24
+1,,,BRG-035,"Kabel UTP Cat6 100m",Kabel,2,2,2026-03-25
+1,,,BRG-015,"Modem ZTE F609",Modem,3,3,2026-03-28
+1,,,BRG-098,"Kabel UTP Cat6 100m",Kabel,2,2,2026-03-28
+1,,,BRG-100,"Switch Cisco SG250",Switch,4,4,2026-03-28
+1,,,BRG-060,"Access Point Ubiquiti U6","Access Point",5,5,2026-03-29
+1,,,BRG-096,"Modem ZTE F609",Modem,4,4,2026-03-29
+1,,,BRG-022,"Router MikroTik RB750",Router,2,2,2026-03-31

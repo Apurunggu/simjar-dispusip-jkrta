@@ -1,0 +1,92 @@
+﻿[
+    {
+        "delete_status":  null,
+        "base":  "barang-masuk",
+        "id":  "1",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "barang-masuk",
+        "id":  "2",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "barang-masuk",
+        "id":  "3",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "barang-masuk",
+        "id":  "4",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "barang-masuk",
+        "id":  "5",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "perangkat-jaringan",
+        "id":  "1",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "perangkat-jaringan",
+        "id":  "2",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "perangkat-jaringan",
+        "id":  "3",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "perangkat-jaringan",
+        "id":  "4",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    },
+    {
+        "delete_status":  null,
+        "base":  "perangkat-jaringan",
+        "id":  "5",
+        "edit_status":  null,
+        "error":  "The remote server returned an error: (500) Internal Server Error.",
+        "token_found":  false,
+        "update_status":  null
+    }
+]

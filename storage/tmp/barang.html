@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barang Masuk - SIMJAR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+        }
+
+        body {
+            background-color: #ecf0f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .sidebar {
+            background-color: #34495e;
+            min-height: calc(100vh - 56px);
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 25px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .stat-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .btn-custom {
+            border-radius: 4px;
+            padding: 8px 16px;
+            transition: all 0.3s;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #ecf0f1;
+        }
+
+        .alert {
+            border-radius: 4px;
+            border: none;
+        }
+
+        .badge-status-aktif {
+            background-color: var(--success-color);
+        }
+
+        .badge-status-tidak-aktif {
+            background-color: var(--danger-color);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                padding: 0;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                margin-right: 10px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+    </head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000">
+                <i class="bi bi-diagram-3"></i> SIMJAR
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">14 February 2026</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h6 class="text-white px-3 mb-3">MENU UTAMA</h6>
+                <a href="http://127.0.0.1:8000" class="">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <hr class="bg-white opacity-10">
+                <h6 class="text-white px-3 mb-3 mt-3">MODUL</h6>
+                <a href="http://127.0.0.1:8000/barang-masuk" class=" active ">
+                    <i class="bi bi-box-seam"></i> Barang Masuk
+                </a>
+                <a href="http://127.0.0.1:8000/perangkat-jaringan" class="">
+                    <i class="bi bi-router"></i> Perangkat Jaringan
+                </a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-box-seam"></i> Data Barang Masuk</h1>
+    <div>
+        <a href="http://127.0.0.1:8000/barang-masuk/create" class="btn btn-primary btn-custom">
+            <i class="bi bi-plus-circle"></i> Tambah Barang
+        </a>
+        <a href="http://127.0.0.1:8000/barang-masuk/export/pdf" class="btn btn-danger btn-custom">
+            <i class="bi bi-file-pdf"></i> Export PDF
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nomor Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                        <th>Tanggal Masuk</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                                            <tr>
+                            <td>1</td>
+                            <td><strong>BRG-001</strong></td>
+                            <td>Router TP-Link TL-WR840N</td>
+                            <td><span class="badge bg-info">Router</span></td>
+                            <td>2</td>
+                            <td>15-01-2024</td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/barang-masuk/1" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/barang-masuk/1/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="http://127.0.0.1:8000/barang-masuk/1" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="" autocomplete="off">                                    <input type="hidden" name="_method" value="DELETE">                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>2</td>
+                            <td><strong>BRG-002</strong></td>
+                            <td>Switch Netgear GS310TP</td>
+                            <td><span class="badge bg-info">Switch</span></td>
+                            <td>1</td>
+                            <td>20-01-2024</td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/barang-masuk/2" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/barang-masuk/2/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="http://127.0.0.1:8000/barang-masuk/2" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="" autocomplete="off">                                    <input type="hidden" name="_method" value="DELETE">                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>3</td>
+                            <td><strong>BRG-003</strong></td>
+                            <td>Modem ZTE F609</td>
+                            <td><span class="badge bg-info">Modem</span></td>
+                            <td>3</td>
+                            <td>01-02-2024</td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/barang-masuk/3" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/barang-masuk/3/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="http://127.0.0.1:8000/barang-masuk/3" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="" autocomplete="off">                                    <input type="hidden" name="_method" value="DELETE">                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>4</td>
+                            <td><strong>BRG-004</strong></td>
+                            <td>Access Point Ubiquiti Unifi</td>
+                            <td><span class="badge bg-info">Access Point</span></td>
+                            <td>4</td>
+                            <td>10-02-2024</td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/barang-masuk/4" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/barang-masuk/4/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="http://127.0.0.1:8000/barang-masuk/4" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="" autocomplete="off">                                    <input type="hidden" name="_method" value="DELETE">                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>5</td>
+                            <td><strong>BRG-005</strong></td>
+                            <td>Kabel UTP Cat6 100m</td>
+                            <td><span class="badge bg-info">Kabel</span></td>
+                            <td>10</td>
+                            <td>15-02-2024</td>
+                            <td>
+                                <a href="http://127.0.0.1:8000/barang-masuk/5" class="btn btn-sm btn-info" title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="http://127.0.0.1:8000/barang-masuk/5/edit" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="http://127.0.0.1:8000/barang-masuk/5" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="" autocomplete="off">                                    <input type="hidden" name="_method" value="DELETE">                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                                    </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
