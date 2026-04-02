@@ -70,6 +70,47 @@
         </div>
 
         <div class="col-md-4">
+            <!-- Tab Navigasi -->
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-secondary text-white">
+                    <ul class="nav nav-tabs card-header-tabs" id="menuTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="dokumen-tab" data-bs-toggle="tab" data-bs-target="#dokumen" type="button" role="tab" aria-controls="dokumen" aria-selected="true">Dokumen Barang</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pihak1-tab" data-bs-toggle="tab" data-bs-target="#pihak1" type="button" role="tab" aria-controls="pihak1" aria-selected="false">Laporan Pihak 1</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pihak2-tab" data-bs-toggle="tab" data-bs-target="#pihak2" type="button" role="tab" aria-controls="pihak2" aria-selected="false">Laporan Pihak 2</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane fade show active" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Surat Jalan Barang</li>
+                            <li class="list-group-item">Bukti Pengiriman</li>
+                            <!-- Tambahkan dokumen lain di sini -->
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="pihak1" role="tabpanel" aria-labelledby="pihak1-tab">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Laporan Serah Terima Pihak 1</li>
+                            <li class="list-group-item">Berita Acara Pihak 1</li>
+                            <!-- Tambahkan laporan pihak 1 di sini -->
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="pihak2" role="tabpanel" aria-labelledby="pihak2-tab">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Laporan Serah Terima Pihak 2</li>
+                            <li class="list-group-item">Berita Acara Pihak 2</li>
+                            <!-- Tambahkan laporan pihak 2 di sini -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informasi Distribusi Tetap Ditampilkan di Bawah Tab -->
             <div class="card bg-light">
                 <div class="card-header bg-secondary text-white">
                     <h6 class="mb-0">Informasi Distribusi</h6>
@@ -116,4 +157,19 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var triggerTabList = [].slice.call(document.querySelectorAll('#menuTabs button'))
+        triggerTabList.forEach(function (triggerEl) {
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault();
+                var tabTrigger = new bootstrap.Tab(triggerEl);
+                tabTrigger.show();
+            });
+        });
+    });
+</script>
 @endsection
