@@ -34,6 +34,13 @@
                     </div>
                 @endif
                 <form method="POST" action="{{ route('register') }}" style="padding: 0 32px 0 32px;">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                                   id="name" name="name" value="{{ old('name') }}" required placeholder="Nama Lengkap">
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                     @csrf
                     <div class="mb-3">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" 
@@ -43,11 +50,16 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                               id="password" name="password" required placeholder="Password">
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <div style="position:relative;">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                   id="password" name="password" required placeholder="Password" style="padding-right:38px;">
+                            <span onclick="togglePassword('password', this)" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            </span>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mb-2" style="background:#4ecdc4;border-radius:24px;font-size:1.1rem;font-weight:600;border:none;">
                         Register
@@ -61,3 +73,19 @@
     <div class="login-right" style="flex:1.1;background:url('/images/login.jpeg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;"></div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+function togglePassword(id, el) {
+    const input = document.getElementById(id);
+    if (!input) return;
+    if (input.type === 'password') {
+        input.type = 'text';
+        el.querySelector('svg').style.opacity = 0.5;
+    } else {
+        input.type = 'password';
+        el.querySelector('svg').style.opacity = 1;
+    }
+}
+</script>
+@endpush

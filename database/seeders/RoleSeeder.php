@@ -60,51 +60,51 @@ class RoleSeeder extends Seeder
             ]
         );
 
-        // Super Admin 2
+        // Admin Cabang 2
         User::updateOrCreate(
             ['email' => 'admin2@simjar.test'],
             [
-                'name' => 'Super Admin 2',
+                'name' => 'Admin Cabang 2',
                 'email' => 'admin2@simjar.test',
                 'password' => Hash::make('12345'),
-                'role_id' => $superAdminRole->id,
-                'cabang_id' => $pusat->id,
+                'role_id' => $adminCabangRole->id,
+                'cabang_id' => $utara ? $utara->id : null,
             ]
         );
 
-        // Super Admin 3
+        // Admin Cabang 3
         User::updateOrCreate(
             ['email' => 'admin3@simjar.test'],
             [
-                'name' => 'Super Admin 3',
+                'name' => 'Admin Cabang 3',
                 'email' => 'admin3@simjar.test',
                 'password' => Hash::make('12345'),
-                'role_id' => $superAdminRole->id,
-                'cabang_id' => $pusat->id,
+                'role_id' => $adminCabangRole->id,
+                'cabang_id' => $selatan ? $selatan->id : null,
             ]
         );
 
-        // Super Admin 4
+        // Admin Cabang 4
         User::updateOrCreate(
             ['email' => 'admin4@simjar.test'],
             [
-                'name' => 'Super Admin 4',
+                'name' => 'Admin Cabang 4',
                 'email' => 'admin4@simjar.test',
                 'password' => Hash::make('12345'),
-                'role_id' => $superAdminRole->id,
-                'cabang_id' => $pusat->id,
+                'role_id' => $adminCabangRole->id,
+                'cabang_id' => $pusat ? $pusat->id : null,
             ]
         );
 
-        // Super Admin 5
+        // Admin Cabang 5
         User::updateOrCreate(
             ['email' => 'admin5@simjar.test'],
             [
-                'name' => 'Super Admin 5',
+                'name' => 'Admin Cabang 5',
                 'email' => 'admin5@simjar.test',
                 'password' => Hash::make('12345'),
-                'role_id' => $superAdminRole->id,
-                'cabang_id' => $pusat->id,
+                'role_id' => $adminCabangRole->id,
+                'cabang_id' => $pusat ? $pusat->id : null,
             ]
         );
 

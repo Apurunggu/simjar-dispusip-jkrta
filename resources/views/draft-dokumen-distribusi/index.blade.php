@@ -66,11 +66,13 @@
                             </td>
                             <td class="d-flex gap-1">
                                 <a href="{{ route('draft-dokumen-distribusi.show', $draft->id) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i> Detail</a>
-                                <form action="{{ route('draft-dokumen-distribusi.destroy', $draft->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus draft ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Hapus</button>
-                                </form>
+                                @canany(['super_admin', 'admin_cabang'])
+                                    <form action="{{ route('draft-dokumen-distribusi.destroy', $draft->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form>
+                                @endcanany
                             </td>
                         </tr>
                     @empty

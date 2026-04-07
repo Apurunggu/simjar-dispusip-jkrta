@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\PerangkatJaringanController;
 use App\Http\Controllers\DistribusiBarangController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CabangController;
 
 // Test Routes (untuk development saja)
 require __DIR__ . '/test-check.php';
@@ -78,8 +79,8 @@ require __DIR__.'/debug-barang.php';
 
     // Routes untuk Distribusi Barang
     Route::prefix('distribusi-barang')->name('distribusi.')->group(function () {
-            // Upload foto distribusi (khusus super admin)
-            Route::post('/{distribusiBarang}/upload-foto', [DistribusiBarangController::class, 'uploadFoto'])->name('uploadFoto')->middleware('role:super_admin');
+            // Upload foto distribusi (super admin & admin cabang)
+            Route::post('/{distribusiBarang}/upload-foto', [DistribusiBarangController::class, 'uploadFoto'])->name('uploadFoto')->middleware('role:super_admin,admin_cabang');
         // Laporan Aktivitas Distribusi
         Route::get('/activity-report', [DistribusiBarangController::class, 'activityReport'])->name('activity-report');
         Route::get('/activity-report/export/excel', [DistribusiBarangController::class, 'exportActivityExcel'])->name('activity-report.export.excel');
@@ -98,5 +99,20 @@ require __DIR__.'/debug-barang.php';
         Route::get('/{distribusiBarang}/activity-log', [DistribusiBarangController::class, 'activityLog'])->name('activity-log');
         Route::delete('/{distribusiBarang}', [DistribusiBarangController::class, 'destroy'])->name('destroy')->middleware('role:super_admin,admin_cabang');
     });
+
+    // Modul Manajemen User (khusus superadmin)
+    Route::middleware(['auth', 'role:super_admin'])->prefix('user-management')->name('user-management.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\UserManagementController::class, 'index'])->name('index');
+        Route::delete('/{id}', [\App\Http\Controllers\UserManagementController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}', [\App\Http\Controllers\UserManagementController::class, 'show'])->name('show');
+        Route::post('/{id}/reset-password', [\App\Http\Controllers\UserManagementController::class, 'resetPassword'])->name('reset-password');
+    });
+
+        // Modul Manajemen Cabang (khusus superadmin)
+        Route::middleware(['auth', 'role:super_admin'])->prefix('cabang')->name('cabang.')->group(function () {
+            Route::get('/', [CabangController::class, 'index'])->name('index');
+            Route::get('/{id}/edit', [CabangController::class, 'edit'])->name('edit');
+            Route::post('/{id}/edit', [CabangController::class, 'update'])->name('update');
+        });
 });
 

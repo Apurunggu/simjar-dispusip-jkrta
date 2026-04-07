@@ -219,6 +219,14 @@
                 <a href="{{ route('distribusi.activity-report') }}">
                     <i class="bi bi-list-check"></i> Laporan Aktivitas Distribusi
                 </a>
+
+                @if(auth()->check() && auth()->user()->hasRole('super_admin'))
+                    <hr class="bg-white opacity-10">
+                    <h6 class="text-white px-3 mb-3 mt-3">KONTROL AKSES</h6>
+                    <a href="{{ route('user-management.index') }}">
+                        <i class="bi bi-people"></i> Manajemen User
+                    </a>
+                @endif
             </div>
 
             <!-- Main Content -->

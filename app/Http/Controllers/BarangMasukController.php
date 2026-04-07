@@ -86,7 +86,9 @@ class BarangMasukController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'nomor_barang' => 'required|string|max:255|unique:barang_masuk,nomor_barang',
             'nama_barang' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:1',
             'tanggal_masuk' => 'required|date',
             'cabang_id' => 'nullable|exists:cabangs,id',
@@ -121,6 +123,13 @@ class BarangMasukController extends Controller
         if (!empty($validated['serial_numbers'])) {
             foreach ($validated['serial_numbers'] as $serial) {
                 if ($serial) {
+                    // Cek duplikat serial_number
+                    $exists = \App\Models\SerialNumber::where('serial_number', $serial)->exists();
+                    if ($exists) {
+                        return redirect()->back()
+                            ->withInput()
+                            ->withErrors(['serial_numbers' => "Serial number '$serial' sudah terdaftar, gunakan yang lain."]);
+                    }
                     $barangMasuk->serialNumbers()->create(['serial_number' => $serial]);
                 }
             }
