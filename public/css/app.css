@@ -1,0 +1,138 @@
+body {
+    background: linear-gradient(135deg, #0d47a1 0%, #ff9800 100%);
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: linear-gradient(180deg, #1e3c72 0%, #1a2f5a 100%);
+    padding: 0;
+    height: calc(100vh - 56px);
+    position: sticky;
+    top: 56px;
+    overflow-y: auto;
+    color: #fff;
+}
+
+.sidebar a {
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0;
+    margin-bottom: 0;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-left-color: #ffb74d;
+}
+
+.sidebar h6 {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.main-content {
+    background: transparent;
+    border-radius: 0;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: none;
+}
+
+.navbar, .navbar-brand {
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+    color: #fff !important;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+/* Dashboard Cards */
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    background-color: #fff;
+}
+
+.card h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.card h5 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Charts */
+canvas {
+    max-height: 300px;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 56px;
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 56px);
+        display: none;
+        z-index: 1000;
+        overflow: auto;
+    }
+    
+    .sidebar.show {
+        display: block;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .card h2 {
+        font-size: 1.8rem;
+    }
+}

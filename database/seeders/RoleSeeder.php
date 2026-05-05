@@ -28,10 +28,10 @@ class RoleSeeder extends Seeder
         $cabangs = [
             ['nama_cabang' => 'DISPUSIP Pusat', 'alamat' => 'Jl. Pusat', 'kota' => 'Jakarta', 'provinsi' => 'DKI Jakarta', 'kode_cabang' => 'PUSAT', 'is_pusat' => true],
             ['nama_cabang' => 'Cabang Utara', 'alamat' => 'Jl. Utara', 'kota' => 'Bekasi', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'UTARA', 'is_pusat' => false],
-            ['nama_cabang' => 'Super Admin 2', 'alamat' => 'Jl. Selatan', 'kota' => 'Tangerang', 'provinsi' => 'Banten', 'kode_cabang' => 'SELATAN', 'is_pusat' => false],
-            ['nama_cabang' => 'Super Admin 3', 'alamat' => 'Jl. Timur', 'kota' => 'Bogor', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'TIMUR', 'is_pusat' => false],
-            ['nama_cabang' => 'Super Admin 4', 'alamat' => 'Jl. Barat', 'kota' => 'Depok', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'BARAT', 'is_pusat' => false],
-            ['nama_cabang' => 'Super Admin 5', 'alamat' => 'Jl. Selatan 2', 'kota' => 'Bekasi', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'SELATAN2', 'is_pusat' => false],
+            ['nama_cabang' => 'Admin Cabang 2', 'alamat' => 'Jl. Selatan', 'kota' => 'Tangerang', 'provinsi' => 'Banten', 'kode_cabang' => 'SELATAN', 'is_pusat' => false],
+            ['nama_cabang' => 'Admin Cabang 3', 'alamat' => 'Jl. Timur', 'kota' => 'Bogor', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'TIMUR', 'is_pusat' => false],
+            ['nama_cabang' => 'Admin Cabang 4', 'alamat' => 'Jl. Barat', 'kota' => 'Depok', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'BARAT', 'is_pusat' => false],
+            ['nama_cabang' => 'Admin Cabang 5', 'alamat' => 'Jl. Selatan 2', 'kota' => 'Bekasi', 'provinsi' => 'Jawa Barat', 'kode_cabang' => 'SELATAN2', 'is_pusat' => false],
         ];
 
         foreach ($cabangs as $cabang) {
@@ -54,7 +54,7 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'admin@simjar.test',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345'),
                 'role_id' => $superAdminRole->id,
                 'cabang_id' => $pusat->id,
             ]

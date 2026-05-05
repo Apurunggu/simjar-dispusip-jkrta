@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>Daftar User (Admin Cabang & User)</h2>
+    <h2 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Daftar User (Admin Cabang & User)</h2>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

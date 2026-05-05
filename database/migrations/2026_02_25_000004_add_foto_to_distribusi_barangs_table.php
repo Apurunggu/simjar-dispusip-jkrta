@@ -8,15 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('distribusi_barangs', function (Blueprint $table) {
-            $table->string('foto')->nullable();
-        });
+        // Foto column sudah ada di migration awal, skip
+        // Schema::table('distribusi_barangs', function (Blueprint $table) {
+        //     $table->string('foto')->nullable();
+        // });
     }
 
     public function down(): void
     {
-        Schema::table('distribusi_barangs', function (Blueprint $table) {
-            $table->dropColumn('foto');
-        });
+        // Schema::table('distribusi_barangs', function (Blueprint $table) {
+        //     $table->dropColumn('foto');
+        // });
     }
 };

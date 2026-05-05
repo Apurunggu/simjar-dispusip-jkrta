@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><i class="bi bi-info-circle"></i> Detail Perangkat Jaringan</h1>
+    <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-info-circle"></i> Detail Perangkat Jaringan</h1>
     <div>
         <a href="{{ route('perangkat-jaringan.edit', $perangkatJaringan->id) }}" class="btn btn-warning btn-custom">
             <i class="bi bi-pencil"></i> Edit

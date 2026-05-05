@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-8">
-        <h1><i class="bi bi-truck"></i> Buat Distribusi Barang</h1>
+        <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-truck"></i> Buat Distribusi Barang</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

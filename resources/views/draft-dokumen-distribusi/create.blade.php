@@ -3,7 +3,7 @@
 @section('title', 'Upload Draft Dokumen Distribusi')
 
 @section('content')
-<h1 class="mb-4"><i class="bi bi-upload"></i> Upload Draft Dokumen Distribusi</h1>
+<h1 class="mb-4" style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-upload"></i> Upload Draft Dokumen Distribusi</h1>
 <div class="card">
     <div class="card-body">
         <form action="{{ route('draft-dokumen-distribusi.store') }}" method="POST" enctype="multipart/form-data">

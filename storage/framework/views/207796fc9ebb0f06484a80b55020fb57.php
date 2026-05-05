@@ -87,6 +87,27 @@
             </div>
         </div>
 
+        <!-- Upload Foto Section -->
+        <?php if(auth()->user()->hasAnyRole(['super_admin', 'admin_cabang'])): ?>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Upload Foto Distribusi</h5>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo e(route('distribusi.uploadFoto', $distribusi->id)); ?>" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Pilih Foto</label>
+                            <input type="file" name="foto" id="foto" class="form-control" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-upload"></i> Upload Foto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <!-- Status Update Section -->
         <?php if(auth()->user()->hasAnyRole(['super_admin', 'admin_cabang'])): ?>
             <div class="card">

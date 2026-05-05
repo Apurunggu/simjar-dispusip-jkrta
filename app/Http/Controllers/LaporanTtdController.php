@@ -25,20 +25,7 @@ class LaporanTtdController extends Controller
             });
         }
         $laporans = $query->latest()->get();
-        // Ambil data dokumen pihak ke 2
-        $queryPihak2 = \App\Models\DokumenBarangPihak2::with('cabang', 'uploader');
-        if (!$user->hasRole('super_admin')) {
-            $queryPihak2->where('cabang_id', $user->cabang_id);
-        }
-        $search2 = request('q2');
-        if ($search2) {
-            $queryPihak2->where(function($q) use ($search2) {
-                $q->where('nama_laporan', 'like', "%$search2%")
-                  ->orWhere('file', 'like', "%$search2%") ;
-            });
-        }
-        $laporanPihak2 = $queryPihak2->latest()->get();
-        return view('laporan_ttd.index', compact('laporans', 'search', 'laporanPihak2'));
+        return view('laporan_ttd.index', compact('laporans', 'search'));
     }
 
     public function create()

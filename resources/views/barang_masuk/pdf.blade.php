@@ -53,11 +53,21 @@
             @forelse($barangMasuk as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->nomor_barang }}</td>
-                    <td>{{ $item->nama_barang }}</td>
-                    <td>{{ $item->kategori }}</td>
-                    <td>{{ $item->jumlah }}</td>
-                    <td>{{ $item->tanggal_masuk->format('d-m-Y') }}</td>
+                    <td>{{ $item->nomor_barang ?? '-' }}</td>
+                    <td>{{ $item->nama_barang ?? '-' }}</td>
+                    <td>{{ $item->kategori ?? '-' }}</td>
+                    <td>{{ $item->jumlah ?? '-' }}</td>
+                    <td>
+                        @if(isset($item->tanggal_masuk))
+                            @if($item->tanggal_masuk instanceof \Carbon\Carbon)
+                                {{ $item->tanggal_masuk->format('d-m-Y') }}
+                            @else
+                                {{ \Carbon\Carbon::parse($item->tanggal_masuk)->format('d-m-Y') }}
+                            @endif
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td>{{ $item->keterangan ?? '-' }}</td>
                 </tr>
             @empty

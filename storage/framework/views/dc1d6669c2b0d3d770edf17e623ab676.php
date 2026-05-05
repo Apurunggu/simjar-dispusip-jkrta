@@ -4,11 +4,11 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid">
-    <h2 class="mb-4 text-center">Laporan Aktivitas Distribusi</h2>
+    <h2 class="mb-4 text-center" style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Laporan Aktivitas Distribusi</h2>
     <form method="GET" action="<?php echo e(route('distribusi.activity-report')); ?>" class="mb-3">
         <div class="row mb-2">
             <div class="col-md-3">
-                <label>Tanggal Awal</label>
+                <label style="color: #ffffff;">Tanggal Awal</label>
                 <input type="date" name="tanggal_awal" class="form-control" value="<?php echo e(request('tanggal_awal')); ?>">
             </div>
             <!-- <div class="col-md-3">
@@ -16,9 +16,10 @@
                 <input type="date" name="tanggal_akhir" class="form-control" value="<?php echo e(request('tanggal_akhir')); ?>">
             </div> -->
             <div class="col-md-3">
-                <label>Status</label>
+                <label style="color: #ffffff;">Status</label>
                 <select name="status" class="form-control">
                     <option value="">-- Semua --</option>
+                    <option value="pending" <?php echo e(request('status')=='pending'?'selected':''); ?>>Pending</option>
                     <option value="dikirim" <?php echo e(request('status')=='dikirim'?'selected':''); ?>>Dikirim</option>
                     <option value="diterima" <?php echo e(request('status')=='diterima'?'selected':''); ?>>Diterima</option>
                     <option value="ditolak" <?php echo e(request('status')=='ditolak'?'selected':''); ?>>Ditolak</option>
@@ -78,10 +79,12 @@
                         <!-- <td><?php echo e($log->distribusi ? $log->distribusi->tanggal_kembali : '-'); ?></td> -->
                         <td>
                             <span class="badge 
-                                <?php if($log->status_baru=='diterima'): ?> bg-success
-                                <?php elseif($log->status_baru=='dikirim'): ?> bg-primary
+                                <?php if($log->distribusi && $log->distribusi->status == 'pending'): ?> bg-warning
+                                <?php elseif($log->distribusi && $log->distribusi->status == 'dikirim'): ?> bg-info
+                                <?php elseif($log->distribusi && $log->distribusi->status == 'diterima'): ?> bg-success
+                                <?php elseif($log->distribusi && $log->distribusi->status == 'ditolak'): ?> bg-danger
                                 <?php else: ?> bg-secondary <?php endif; ?>">
-                                <?php echo e(ucfirst($log->status_baru)); ?>
+                                <?php echo e($log->distribusi ? ucfirst($log->distribusi->status) : 'N/A'); ?>
 
                             </span>
                         </td>

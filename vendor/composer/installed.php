@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'simjar/sistem-informasi-manajemen-jaringan',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '1de714dbffd9f17b4616a2523b6ef57327777b14',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -936,9 +936,9 @@
             'dev_requirement' => true,
         ),
         'simjar/sistem-informasi-manajemen-jaringan' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '1de714dbffd9f17b4616a2523b6ef57327777b14',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

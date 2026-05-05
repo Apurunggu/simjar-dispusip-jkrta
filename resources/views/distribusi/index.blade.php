@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h1><i class="bi bi-truck"></i> Distribusi Barang</h1>
+        <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-truck"></i> Distribusi Barang</h1>
         <div class="mb-3">
             <a href="{{ route('distribusi.exportPdf', ['type' => 'serah-terima']) }}" class="btn btn-danger">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF Serah Terima

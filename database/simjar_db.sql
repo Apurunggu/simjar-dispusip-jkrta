@@ -96,3 +96,4 @@ INSERT INTO activity_logs (perangkat_id, aktivitas, deskripsi, tanggal_aktivitas
 (2, 'Perangkat Ditambahkan', 'Perangkat Switch Utama ditambahkan ke sistem', NOW()),
 (3, 'Perangkat Ditambahkan', 'Perangkat AP Lantai 1 ditambahkan ke sistem', NOW()),
 (4, 'Perangkat Ditambahkan', 'Perangkat AP Lantai 2 ditambahkan ke sistem', NOW());
+    

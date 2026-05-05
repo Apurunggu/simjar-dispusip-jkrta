@@ -3,7 +3,7 @@
 @section('title', 'Tambah Barang Masuk')
 
 @section('content')
-<h1 class="mb-4"><i class="bi bi-plus-circle"></i> Tambah Barang Masuk</h1>
+<h1 class="mb-4" style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-plus-circle"></i> Tambah Barang Masuk</h1>
 
 <div class="row">
     <div class="col-md-8">

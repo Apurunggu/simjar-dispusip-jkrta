@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1><i class="bi bi-file-earmark-pdf"></i> Draft Dokumen Distribusi</h1>
+    <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-file-earmark-pdf"></i> Draft Dokumen Distribusi</h1>
     <a href="{{ route('draft-dokumen-distribusi.create') }}" class="btn btn-primary">
         <i class="bi bi-upload"></i> Upload Draft Baru
     </a>

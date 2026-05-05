@@ -33,7 +33,8 @@ class DistribusiBarangController extends Controller {
         }
         // Jika request dari select status
         $statusBaru = $request->input('status');
-        $allowed = ['pending', 'dikirim', 'diterima', 'ditolak'];
+        // Sync dengan ENUM di database: pending, dikirim, diterima, ditolak, terpasang, tidak_terpasang
+        $allowed = ['pending', 'dikirim', 'diterima', 'ditolak', 'terpasang', 'tidak_terpasang'];
         if (!in_array($statusBaru, $allowed)) {
             return back()->withErrors(['error' => 'Status tidak valid']);
         }
@@ -67,16 +68,19 @@ class DistribusiBarangController extends Controller {
         $status = $request->input('status');
         $search = $request->input('search');
 
-        $query = DistribusiActivityLog::with(['distribusi', 'distribusi.barang', 'distribusi.cabangAsal', 'distribusi.cabangTujuan', 'user']);
+        // Join dengan distribusi_barangs untuk mendapatkan status REALTIME
+        $query = DistribusiActivityLog::with(['distribusi', 'distribusi.barang', 'distribusi.cabangAsal', 'distribusi.cabangTujuan', 'user'])
+            ->join('distribusi_barangs', 'distribusi_activity_logs.distribusi_id', '=', 'distribusi_barangs.id');
 
         if ($tanggal_awal) {
-            $query->whereDate('created_at', '>=', $tanggal_awal);
+            $query->whereDate('distribusi_activity_logs.created_at', '>=', $tanggal_awal);
         }
         if ($tanggal_akhir) {
-            $query->whereDate('created_at', '<=', $tanggal_akhir);
+            $query->whereDate('distribusi_activity_logs.created_at', '<=', $tanggal_akhir);
         }
+        // Filter berdasarkan status REALTIME dari distribusi_barangs
         if ($status) {
-            $query->where('status_baru', $status);
+            $query->where('distribusi_barangs.status', $status);
         }
         if ($search) {
             $query->whereHas('distribusi', function($q) use ($search) {
@@ -87,7 +91,10 @@ class DistribusiBarangController extends Controller {
             });
         }
 
-        $logs = $query->orderBy('created_at', 'desc')->paginate(10);
+        // Select kolom dari activity log dan tampilkan status REALTIME
+        $logs = $query->select('distribusi_activity_logs.*')
+            ->orderBy('distribusi_activity_logs.created_at', 'desc')
+            ->paginate(10);
 
         return view('distribusi.activity-report', compact('logs', 'tanggal_awal', 'tanggal_akhir', 'status', 'search'));
     }

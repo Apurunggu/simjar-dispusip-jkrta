@@ -12,18 +12,17 @@
             margin: 0;
             padding: 0;
             width: 100vw;
-            overflow: hidden;
+            overflow-x: hidden;
             background: #f5f6fa;
         }
         body {
             background: none !important;
         }
-        /* Container utama dengan border-radius dan shadow */
         .auth-outer-container {
             width: 98vw;
             height: 96vh;
-            min-height: 600px;
-            min-width: 320px;
+            min-height: 400px;
+            min-width: 280px;
             max-width: 1200px;
             max-height: 800px;
             margin: 1.5vh auto;
@@ -34,7 +33,6 @@
             position: relative;
             display: flex;
         }
-        /* .login-split dan child-nya edge-to-edge, full height */
         .login-split {
             display: flex;
             width: 100%;
@@ -51,8 +49,50 @@
             align-items: center;
             justify-content: center;
         }
-        /* Hilangkan navbar pada halaman login/register */
+        .login-right img, .login-right-panel img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 16px auto;
+        }
         .navbar { display: none !important; }
+        /* Responsive for mobile */
+        @media (max-width: 900px) {
+            .auth-outer-container {
+                min-height: 0;
+                height: auto;
+                max-height: none;
+            }
+            .login-split {
+                flex-direction: column;
+                height: auto;
+                min-height: 0;
+                position: static;
+            }
+            .login-left, .login-right {
+                width: 100%;
+                min-width: 0;
+                min-height: 0;
+                height: auto;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0 0 24px 0;
+            }
+            .login-right {
+                padding-bottom: 32px;
+            }
+        }
+        @media (max-width: 600px) {
+            .auth-outer-container {
+                width: 100vw;
+                border-radius: 0;
+                margin: 0;
+            }
+            .login-card {
+                max-width: 98vw;
+                padding: 8px 2px;
+            }
+        }
     </style>
     <?php echo $__env->yieldPushContent('styles'); ?>
 </head>

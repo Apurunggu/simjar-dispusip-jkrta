@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-8">
-        <h1><i class="bi bi-truck"></i> Detail Distribusi</h1>
+        <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-truck"></i> Detail Distribusi</h1>
 
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">

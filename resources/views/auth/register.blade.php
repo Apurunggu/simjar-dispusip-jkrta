@@ -34,13 +34,13 @@
                     </div>
                 @endif
                 <form method="POST" action="{{ route('register') }}" style="padding: 0 32px 0 32px;">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                                   id="name" name="name" value="{{ old('name') }}" required placeholder="Nama Lengkap">
-                                            @error('name')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                               id="name" name="name" value="{{ old('name') }}" required placeholder="Nama Lengkap">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     @csrf
                     <div class="mb-3">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" 

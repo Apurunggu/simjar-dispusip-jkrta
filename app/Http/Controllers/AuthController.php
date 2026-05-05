@@ -22,7 +22,7 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-              'password' => 'required|min:5',
+              'password' => 'required|min:8',
         ]);
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
@@ -53,7 +53,8 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
         ]);
 
         // Default role = user (id 4)

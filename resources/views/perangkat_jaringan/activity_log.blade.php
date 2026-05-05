@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><i class="bi bi-clock-history"></i> Log Aktivitas Perangkat</h1>
+    <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-clock-history"></i> Log Aktivitas Perangkat</h1>
     <a href="{{ route('perangkat-jaringan.show', $perangkatJaringan->id) }}" class="btn btn-secondary btn-custom">
         <i class="bi bi-arrow-left"></i> Kembali
     </a>

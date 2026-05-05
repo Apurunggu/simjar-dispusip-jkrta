@@ -109,7 +109,7 @@
             </div>
         </div>
         <!-- Kanan: Panel gambar saja -->
-        <div class="login-right"></div>
+        <div class="login-right" style="flex:1.1;background:url('/images/login.jpeg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;"></div>
     </div>
     @endsection
 

@@ -20,19 +20,27 @@ try {
     // Manually set authenticated user in auth guard
     app('auth')->guard('web')->setUser($user);
     
+    echo "\n";
+    echo "╔═══════════════════════════════════════════════╗\n";
+    echo "║  USER AUTHENTICATION INFO                     ║\n";
+    echo "╚═══════════════════════════════════════════════╝\n";
     echo "Logged in as: " . $user->name . "\n";
     echo "Role: " . ($user->role ? $user->role->label : 'No Role') . "\n";
-    echo "===============================================\n\n";
+    echo "\n";
 
     // Now call the controller
     $controller = new \App\Http\Controllers\DashboardController();
     
-    echo "Calling DashboardController::index()...\n";
+    echo "╔═══════════════════════════════════════════════╗\n";
+    echo "║  CALLING DASHBOARD CONTROLLER                 ║\n";
+    echo "╚═══════════════════════════════════════════════╝\n";
     $view = $controller->index();
 
-    echo "✓ View returned successfully!\n";
+    echo "\n✓ View returned successfully!\n";
     echo "View name: " . $view->getName() . "\n";
-    echo "Data passed: \n";
+    echo "\n╔═══════════════════════════════════════════════╗\n";
+    echo "║  DATA PASSED TO VIEW                          ║\n";
+    echo "╚═══════════════════════════════════════════════╝\n";
     
     $data = $view->getData();
     foreach ($data as $key => $value) {
@@ -43,7 +51,9 @@ try {
         }
     }
 
-    echo "\n✓ Controller test completed successfully!\n";
+    echo "\n╔═══════════════════════════════════════════════╗\n";
+    echo "║  ✓ TEST COMPLETED SUCCESSFULLY                ║\n";
+    echo "╚═══════════════════════════════════════════════╝\n\n";
 
 } catch (\Exception $e) {
     echo "Error: " . $e->getMessage() . "\n";

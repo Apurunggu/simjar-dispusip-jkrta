@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1><i class="bi bi-file-earmark-pdf"></i> Draft Dokumen Distribusi</h1>
+    <h1 style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"><i class="bi bi-file-earmark-pdf"></i> Draft Dokumen Distribusi</h1>
     <a href="<?php echo e(route('draft-dokumen-distribusi.create')); ?>" class="btn btn-primary">
         <i class="bi bi-upload"></i> Upload Draft Baru
     </a>
@@ -66,11 +66,13 @@
                             </td>
                             <td class="d-flex gap-1">
                                 <a href="<?php echo e(route('draft-dokumen-distribusi.show', $draft->id)); ?>" class="btn btn-info btn-sm"><i class="bi bi-eye"></i> Detail</a>
-                                <form action="<?php echo e(route('draft-dokumen-distribusi.destroy', $draft->id)); ?>" method="POST" onsubmit="return confirm('Yakin ingin menghapus draft ini?');">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('DELETE'); ?>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Hapus</button>
-                                </form>
+                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['super_admin', 'admin_cabang'])): ?>
+                                    <form action="<?php echo e(route('draft-dokumen-distribusi.destroy', $draft->id)); ?>" method="POST" class="d-inline">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

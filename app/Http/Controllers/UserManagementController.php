@@ -7,6 +7,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
@@ -44,9 +45,9 @@ class UserManagementController extends Controller
             return back()->with('error', 'Tidak bisa reset password akun ini');
         }
         $request->validate([
-            'password' => 'required|min:4',
+            'password' => 'required|min:8',
         ]);
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
         $user->save();
         return back()->with('success', 'Password berhasil direset');
     }

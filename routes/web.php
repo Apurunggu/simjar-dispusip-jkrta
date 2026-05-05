@@ -8,18 +8,24 @@ use App\Http\Controllers\DistribusiBarangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabangController;
 
-// Test Routes (untuk development saja)
-require __DIR__ . '/test-check.php';
-require __DIR__ . '/test-sum.php';
-require __DIR__ . '/test-setup.php';
-require __DIR__ . '/test-dashboard-final.php';
-require __DIR__ . '/test-dashboard.php';
+// Test Routes (untuk development saja - hanya di environment local)
+if (app()->environment('local')) {
+    require __DIR__ . '/test-check.php';
+    require __DIR__ . '/test-sum.php';
+    require __DIR__ . '/test-setup.php';
+    require __DIR__ . '/test-dashboard-final.php';
+    require __DIR__ . '/test-direct-dashboard.php';
+    require __DIR__ . '/test-api-dashboard.php';
+    require __DIR__ . '/test-dashboard-debug.php';
+    require __DIR__ . '/debug.php';
+    require __DIR__ . '/test-dashboard.php';
+}
 
 // Auth Routes (Public)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:3,1')->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected Routes
@@ -99,6 +105,10 @@ require __DIR__.'/debug-barang.php';
         Route::get('/{distribusiBarang}/activity-log', [DistribusiBarangController::class, 'activityLog'])->name('activity-log');
         Route::delete('/{distribusiBarang}', [DistribusiBarangController::class, 'destroy'])->name('destroy')->middleware('role:super_admin,admin_cabang');
     });
+
+    // Dokumen Barang Split
+    Route::get('/dokumen/pihak-1', [\App\Http\Controllers\DokumenBarangController::class, 'pihak1'])->name('dokumen.pihak1');
+    Route::get('/dokumen/pihak-2', [\App\Http\Controllers\DokumenBarangController::class, 'pihak2'])->name('dokumen.pihak2');
 
     // Modul Manajemen User (khusus superadmin)
     Route::middleware(['auth', 'role:super_admin'])->prefix('user-management')->name('user-management.')->group(function () {

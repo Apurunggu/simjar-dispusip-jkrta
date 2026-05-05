@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="container-fluid">
-    <h2 class="mb-4 text-center">Laporan Aktivitas Distribusi</h2>
+    <h2 class="mb-4 text-center" style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Laporan Aktivitas Distribusi</h2>
     <form method="GET" action="{{ route('distribusi.activity-report') }}" class="mb-3">
         <div class="row mb-2">
             <div class="col-md-3">
-                <label>Tanggal Awal</label>
+                <label style="color: #ffffff;">Tanggal Awal</label>
                 <input type="date" name="tanggal_awal" class="form-control" value="{{ request('tanggal_awal') }}">
             </div>
             <!-- <div class="col-md-3">
@@ -16,9 +16,10 @@
                 <input type="date" name="tanggal_akhir" class="form-control" value="{{ request('tanggal_akhir') }}">
             </div> -->
             <div class="col-md-3">
-                <label>Status</label>
+                <label style="color: #ffffff;">Status</label>
                 <select name="status" class="form-control">
                     <option value="">-- Semua --</option>
+                    <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
                     <option value="dikirim" {{ request('status')=='dikirim'?'selected':'' }}>Dikirim</option>
                     <option value="diterima" {{ request('status')=='diterima'?'selected':'' }}>Diterima</option>
                     <option value="ditolak" {{ request('status')=='ditolak'?'selected':'' }}>Ditolak</option>
@@ -77,10 +78,12 @@
                         <!-- <td>{{ $log->distribusi ? $log->distribusi->tanggal_kembali : '-' }}</td> -->
                         <td>
                             <span class="badge 
-                                @if($log->status_baru=='diterima') bg-success
-                                @elseif($log->status_baru=='dikirim') bg-primary
+                                @if($log->distribusi && $log->distribusi->status == 'pending') bg-warning
+                                @elseif($log->distribusi && $log->distribusi->status == 'dikirim') bg-info
+                                @elseif($log->distribusi && $log->distribusi->status == 'diterima') bg-success
+                                @elseif($log->distribusi && $log->distribusi->status == 'ditolak') bg-danger
                                 @else bg-secondary @endif">
-                                {{ ucfirst($log->status_baru) }}
+                                {{ $log->distribusi ? ucfirst($log->distribusi->status) : 'N/A' }}
                             </span>
                         </td>
                         <td>

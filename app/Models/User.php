@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function hasRole($name)
     {
-        return $this->role && $this->role->name === $name;
+        return $this->role?->name === $name;
     }
 
     public function hasAnyRole($names)
