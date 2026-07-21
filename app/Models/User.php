@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->belongsTo(Cabang::class);
     }
 
+    public function notifikasi()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function hasRole($name)
     {
         return $this->role?->name === $name;

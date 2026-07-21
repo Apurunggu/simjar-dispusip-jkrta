@@ -47,6 +47,9 @@ class RoleSeeder extends Seeder
         $pusat = Cabang::where('kode_cabang', 'PUSAT')->first();
         $utara = Cabang::where('kode_cabang', 'UTARA')->first();
         $selatan = Cabang::where('kode_cabang', 'SELATAN')->first();
+        $timur = Cabang::where('kode_cabang', 'TIMUR')->first();
+        $barat = Cabang::where('kode_cabang', 'BARAT')->first();
+        $selatan2 = Cabang::where('kode_cabang', 'SELATAN2')->first();
 
         // Super Admin (Pusat)
         User::firstOrCreate(
@@ -54,7 +57,7 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'admin@simjar.test',
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('password123'),
                 'role_id' => $superAdminRole->id,
                 'cabang_id' => $pusat->id,
             ]
@@ -66,7 +69,7 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Admin Cabang 2',
                 'email' => 'admin2@simjar.test',
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('password123'),
                 'role_id' => $adminCabangRole->id,
                 'cabang_id' => $utara ? $utara->id : null,
             ]
@@ -78,33 +81,33 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Admin Cabang 3',
                 'email' => 'admin3@simjar.test',
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('password123'),
                 'role_id' => $adminCabangRole->id,
                 'cabang_id' => $selatan ? $selatan->id : null,
             ]
         );
 
-        // Admin Cabang 4
+        // Admin Cabang 4 - Timur
         User::updateOrCreate(
             ['email' => 'admin4@simjar.test'],
             [
-                'name' => 'Admin Cabang 4',
+                'name' => 'Admin Cabang Timur',
                 'email' => 'admin4@simjar.test',
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('password123'),
                 'role_id' => $adminCabangRole->id,
-                'cabang_id' => $pusat ? $pusat->id : null,
+                'cabang_id' => $timur ? $timur->id : null,
             ]
         );
 
-        // Admin Cabang 5
+        // Admin Cabang 5 - Barat
         User::updateOrCreate(
             ['email' => 'admin5@simjar.test'],
             [
-                'name' => 'Admin Cabang 5',
+                'name' => 'Admin Cabang Barat',
                 'email' => 'admin5@simjar.test',
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('password123'),
                 'role_id' => $adminCabangRole->id,
-                'cabang_id' => $pusat ? $pusat->id : null,
+                'cabang_id' => $barat ? $barat->id : null,
             ]
         );
 

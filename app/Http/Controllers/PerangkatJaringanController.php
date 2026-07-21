@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Carbon\Carbon;
+use App\Helpers\NotificationHelper;
 
 class PerangkatJaringanController extends Controller
 {
@@ -52,6 +53,31 @@ class PerangkatJaringanController extends Controller
             'deskripsi' => 'Perangkat baru ' . $perangkat->nama_perangkat . ' ditambahkan ke sistem',
             'tanggal_aktivitas' => Carbon::now(),
         ]);
+
+        // ===== SEND NOTIFICATIONS =====
+        $notifTitle = '🔌 Perangkat Jaringan Baru';
+        $notifMessage = "Perangkat '{$perangkat->nama_perangkat}' ({$perangkat->tipe_perangkat}) telah ditambahkan";
+
+        // Notify Super Admin & Admin Cabang
+        NotificationHelper::notifyRole(
+            'super_admin',
+            title: $notifTitle,
+            message: $notifMessage,
+            type: 'perangkat_jaringan',
+            icon: 'bi-router',
+            color: 'info',
+            actionUrl: route('perangkat-jaringan.show', $perangkat->id)
+        );
+
+        NotificationHelper::notifyRole(
+            'admin_cabang',
+            title: $notifTitle,
+            message: $notifMessage,
+            type: 'perangkat_jaringan',
+            icon: 'bi-router',
+            color: 'info',
+            actionUrl: route('perangkat-jaringan.show', $perangkat->id)
+        );
 
         return redirect()->route('perangkat-jaringan.index')->with('success', 'Perangkat berhasil ditambahkan');
     }
@@ -105,6 +131,17 @@ class PerangkatJaringanController extends Controller
             'tanggal_aktivitas' => Carbon::now(),
         ]);
 
+        // ===== SEND NOTIFICATIONS =====
+        NotificationHelper::notifyRole(
+            'super_admin',
+            title: '⚠️ Perangkat Dinonaktifkan',
+            message: "Perangkat '{$perangkatJaringan->nama_perangkat}' telah dinonaktifkan",
+            type: 'perangkat_jaringan',
+            icon: 'bi-exclamation-circle',
+            color: 'warning',
+            actionUrl: route('perangkat-jaringan.show', $perangkatJaringan->id)
+        );
+
         return redirect()->route('perangkat-jaringan.index')->with('success', 'Perangkat berhasil dinonaktifkan');
     }
 
@@ -118,6 +155,17 @@ class PerangkatJaringanController extends Controller
             'deskripsi' => 'Perangkat ' . $perangkatJaringan->nama_perangkat . ' diaktifkan kembali',
             'tanggal_aktivitas' => Carbon::now(),
         ]);
+
+        // ===== SEND NOTIFICATIONS =====
+        NotificationHelper::notifyRole(
+            'super_admin',
+            title: '✅ Perangkat Diaktifkan',
+            message: "Perangkat '{$perangkatJaringan->nama_perangkat}' telah diaktifkan kembali",
+            type: 'perangkat_jaringan',
+            icon: 'bi-check-circle',
+            color: 'success',
+            actionUrl: route('perangkat-jaringan.show', $perangkatJaringan->id)
+        );
 
         return redirect()->route('perangkat-jaringan.index')->with('success', 'Perangkat berhasil diaktifkan');
     }

@@ -28,6 +28,9 @@
                         <span class="nav-link">{{ date('d F Y') }}</span>
                     </li>
                     @auth
+                    <!-- Notification Bell -->
+                    @include('components.notification-dropdown')
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i> {{ auth()->user()->name ?? 'User' }}

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Carbon\Carbon;
+use App\Helpers\NotificationHelper;
 
 use PhpOffice\PhpWord\PhpWord;
 
@@ -264,26 +265,52 @@ class DistribusiBarangController extends Controller {
     }
     public function index(): View
     {
-        $distribusi = DistribusiBarang::with(['barang', 'cabangAsal', 'cabangTujuan', 'user'])->latest()->paginate(10);
+        $user = auth()->user();
+        $query = DistribusiBarang::with(['barang', 'cabangAsal', 'cabangTujuan', 'user']);
+
+        // Jika bukan super admin, filter distribusi dari cabang user (asal atau tujuan)
+        if (!$user->hasRole('super_admin')) {
+            $userCabang = $user->cabang_id;
+            $query->where(function ($q) use ($userCabang) {
+                $q->where('cabang_asal_id', $userCabang)
+                  ->orWhere('cabang_tujuan_id', $userCabang);
+            });
+        }
+
+        $distribusi = $query->latest()->paginate(10);
         
         return view('distribusi.index', compact('distribusi'));
     }
 
     public function create(): View
     {
+        // Authorization: super_admin dan admin_cabang saja yang bisa create
+        $user = auth()->user();
+        if (!$user->hasAnyRole(['super_admin', 'admin_cabang', 'staff'])) {
+            abort(403, 'Anda tidak memiliki izin untuk membuat distribusi');
+        }
+
         // Get current user's cabang
-        $userCabang = auth()->user()->cabang_id;
-        $isSuperAdmin = auth()->user()->hasRole('super_admin');
+        $userCabang = $user->cabang_id;
+        $isSuperAdmin = $user->hasRole('super_admin');
 
         // Hanya Super Admin yang bisa kirim dari mana saja
         if ($isSuperAdmin) {
             $cabangAsal = Cabang::orderBy('is_pusat', 'desc')->get();
+            $barangMasuk = BarangMasuk::where('stok', '>', 0)->get();
         } else {
+            // Admin cabang/staff hanya bisa kirim dari cabang mereka
             $cabangAsal = Cabang::where('id', $userCabang)->get();
+            // Tampilkan barang dari cabang mereka ATAU barang pusat (cabang_id NULL)
+            $barangMasuk = BarangMasuk::where('stok', '>', 0)
+                ->where(function ($query) use ($userCabang) {
+                    $query->where('cabang_id', $userCabang)
+                          ->orWhereNull('cabang_id');
+                })
+                ->get();
         }
 
         $cabangTujuan = Cabang::where('id', '!=', $userCabang)->get();
-        $barangMasuk = BarangMasuk::where('stok', '>', 0)->get();
 
         return view('distribusi.create', compact('cabangAsal', 'cabangTujuan', 'barangMasuk'));
     }
@@ -299,6 +326,15 @@ class DistribusiBarangController extends Controller {
             // 'tanggal_kirim' diisi otomatis, tidak perlu validasi input user
             'keterangan' => 'nullable|string',
         ]);
+
+        // ===== AUTHORIZATION CHECK =====
+        $user = auth()->user();
+        $isSuperAdmin = $user->hasRole('super_admin');
+        
+        // Jika bukan super admin, cabang_asal harus sesuai dengan cabang user
+        if (!$isSuperAdmin && $validated['cabang_asal_id'] != $user->cabang_id) {
+            abort(403, 'Anda hanya bisa mendistribusikan barang dari cabang Anda sendiri');
+        }
 
         // Cek stok
         $barang = BarangMasuk::findOrFail($validated['barang_id']);
@@ -331,6 +367,55 @@ class DistribusiBarangController extends Controller {
         // Kurangi stok barang
         $barang->decrement('stok', $validated['jumlah']);
 
+        // ===== SEND NOTIFICATIONS =====
+        $cabangAsal = Cabang::find($validated['cabang_asal_id']);
+        $cabangTujuan = Cabang::find($validated['cabang_tujuan_id']);
+        $notifTitle = '📦 Distribusi Barang Baru';
+        $notifMessage = "Distribusi '{$barang->nama_barang}' ({$validated['jumlah']} unit) dari {$cabangAsal->nama_cabang} ke {$cabangTujuan->nama_cabang}";
+
+        // Notify Super Admin
+        NotificationHelper::notifyRole(
+            'super_admin',
+            title: $notifTitle,
+            message: $notifMessage,
+            type: 'distribusi',
+            icon: 'bi-truck',
+            color: 'success',
+            actionUrl: route('distribusi.show', $distribusi->id)
+        );
+
+        // Notify Admin Cabang Tujuan
+        $adminCabangTujuan = \App\Models\User::where('role_id', \App\Models\Role::where('name', 'admin_cabang')->first()->id)
+            ->where('cabang_id', $cabangTujuan->id)
+            ->get();
+        foreach ($adminCabangTujuan as $admin) {
+            NotificationHelper::notify(
+                $admin->id,
+                title: '🚚 Distribusi untuk Cabang Anda',
+                message: $notifMessage,
+                type: 'distribusi',
+                icon: 'bi-truck',
+                color: 'info',
+                actionUrl: route('distribusi.show', $distribusi->id)
+            );
+        }
+
+        // Notify Admin Cabang Asal
+        $adminCabangAsal = \App\Models\User::where('role_id', \App\Models\Role::where('name', 'admin_cabang')->first()->id)
+            ->where('cabang_id', $cabangAsal->id)
+            ->get();
+        foreach ($adminCabangAsal as $admin) {
+            NotificationHelper::notify(
+                $admin->id,
+                title: '📤 Distribusi Barang Keluar',
+                message: $notifMessage,
+                type: 'distribusi',
+                icon: 'bi-arrow-right',
+                color: 'warning',
+                actionUrl: route('distribusi.show', $distribusi->id)
+            );
+        }
+
         return redirect()->route('distribusi.index')->with('success', 'Distribusi berhasil dibuat');
     }
 
@@ -359,6 +444,12 @@ class DistribusiBarangController extends Controller {
 
     public function destroy(DistribusiBarang $distribusi): RedirectResponse
     {
+        // ===== AUTHORIZATION =====
+        $user = auth()->user();
+        if (!$user->hasRole('super_admin') && $distribusi->cabang_asal_id != $user->cabang_id) {
+            abort(403, 'Anda hanya bisa menghapus distribusi dari cabang Anda sendiri');
+        }
+
         if ($distribusi->status !== 'pending') {
             return back()->withErrors(['error' => 'Hanya distribusi yang pending yang bisa dihapus']);
         }

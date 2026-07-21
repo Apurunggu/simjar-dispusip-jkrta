@@ -18,7 +18,7 @@
             </a>
         </div>
         
-        @if(auth()->user()->hasAnyRole(['super_admin', 'staff']))
+        @if(auth()->user()->hasAnyRole(['super_admin', 'admin_cabang', 'staff']))
             <a href="{{ route('distribusi.create') }}" class="btn btn-primary mb-3">
                 <i class="bi bi-plus-circle"></i> Buat Distribusi Baru
             </a>
@@ -91,7 +91,7 @@
                                             <a href="{{ route('distribusi.show', $d) }}" class="btn btn-sm btn-info">
                                                 <i class="bi bi-eye"></i> Detail
                                             </a>
-                                            @if($d->status === 'pending' && auth()->user()->hasAnyRole(['super_admin', 'staff']))
+                                            @if($d->status === 'pending' && auth()->user()->hasAnyRole(['super_admin', 'admin_cabang', 'staff']))
                                                 <form action="{{ route('distribusi.destroy', $d) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')

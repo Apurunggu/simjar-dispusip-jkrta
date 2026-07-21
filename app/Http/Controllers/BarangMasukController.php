@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\NotificationHelper;
 
 class BarangMasukController extends Controller
 {
@@ -140,6 +141,38 @@ class BarangMasukController extends Controller
                     $barangMasuk->serialNumbers()->create(['serial_number' => $serial]);
                 }
             }
+        }
+
+        // ===== SEND NOTIFICATIONS =====
+        $cabang = Cabang::find($barangMasuk->cabang_id);
+        $notifTitle = '📦 Barang Masuk Baru';
+        $notifMessage = "Barang '{$barangMasuk->nama_barang}' ({$barangMasuk->jumlah} unit) telah ditambahkan ke {$cabang->nama_cabang}";
+
+        // Notify Super Admin
+        NotificationHelper::notifyRole(
+            'super_admin',
+            title: $notifTitle,
+            message: $notifMessage,
+            type: 'barang_masuk',
+            icon: 'bi-box-seam',
+            color: 'primary',
+            actionUrl: route('barang-masuk.show', $barangMasuk->id)
+        );
+
+        // Notify Admin Cabang
+        $adminCabang = \App\Models\User::where('role_id', \App\Models\Role::where('name', 'admin_cabang')->first()->id)
+            ->where('cabang_id', $barangMasuk->cabang_id)
+            ->get();
+        foreach ($adminCabang as $admin) {
+            NotificationHelper::notify(
+                $admin->id,
+                title: '📥 Barang Masuk ke Cabang Anda',
+                message: $notifMessage,
+                type: 'barang_masuk',
+                icon: 'bi-box-seam',
+                color: 'success',
+                actionUrl: route('barang-masuk.show', $barangMasuk->id)
+            );
         }
 
         return redirect()->route('barang-masuk.index')->with('success', 'Barang berhasil ditambahkan');

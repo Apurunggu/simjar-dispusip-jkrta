@@ -7,6 +7,7 @@ use App\Http\Controllers\PerangkatJaringanController;
 use App\Http\Controllers\DistribusiBarangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\NotificationController;
 
 // Test Routes (untuk development saja - hanya di environment local)
 if (app()->environment('local')) {
@@ -123,6 +124,16 @@ require __DIR__.'/debug-barang.php';
             Route::get('/', [CabangController::class, 'index'])->name('index');
             Route::get('/{id}/edit', [CabangController::class, 'edit'])->name('edit');
             Route::post('/{id}/edit', [CabangController::class, 'update'])->name('update');
+        });
+
+        // Notification Routes
+        Route::prefix('notifications')->name('notifications.')->group(function () {
+            Route::get('/', [NotificationController::class, 'index'])->name('index');
+            Route::get('/dropdown', [NotificationController::class, 'dropdown'])->name('dropdown');
+            Route::post('/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('markAsRead');
+            Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
+            Route::delete('/{id}', [NotificationController::class, 'delete'])->name('delete');
+            Route::delete('/', [NotificationController::class, 'deleteAll'])->name('deleteAll');
         });
 });
 
